@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {ToastContainer} from "react-toastify";
+import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
 import firebase from "./utils/Firebase";
 import "firebase/auth";
 import "firebase/firestore";

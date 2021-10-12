@@ -1,20 +1,22 @@
-import React, {useState, useEffect} from "react";
-import {Menu, Icon} from "semantic-ui-react";
-import {Link, withRouter} from "react-router-dom";
-import {isUserAdmin} from "../../utils/Api";
+import React, { useState, useEffect } from "react";
+import { Menu, Icon } from "semantic-ui-react";
+import { Link, withRouter } from "react-router-dom";
+import { isUserAdmin } from "../../utils/Api";
 
 import "./MenuLeft.scss";
 
 function MenuLeft(props) {
-  const {user, location} = props;
+  const { user, location } = props;
   const [activeMenu, setActiveMenu] = useState(location.pathname);
   const [userAdmin, setUserAdmin] = useState(false);
 
-  console.log(user);
 
-  // useEffect(() => {
-  //   isUserAdmin(user.uid);
-  // });
+
+  useEffect(() => {
+    isUserAdmin(user.uid).then(response => {
+      setUserAdmin(response);
+    });
+  }, [user]);
 
   const handlerMenu = (e, menu) => {
     setActiveMenu(menu.to);
@@ -40,7 +42,9 @@ function MenuLeft(props) {
           <Icon name="music" /> Artista
         </Menu.Item>
       </div>
-      <div className="footer">
+      {userAdmin ? console.log("A un no funciona la verificacion")(
+
+      ) : <div className="footer">
         <Menu.Item>
           <Icon name="plus square outline" /> Nuevo Artista
         </Menu.Item>
@@ -48,7 +52,7 @@ function MenuLeft(props) {
           <Icon name="plus square outline" />
           Nueva Cancion
         </Menu.Item>
-      </div>
+      </div>}
     </Menu>
   );
 }
