@@ -14,6 +14,9 @@ function MenuLeft(props) {
   const [titleModal, setTitleModal] = useState(null);
   const [contentModal, setContentModal] = useState(null)
 
+  useEffect(() => {
+    setActiveMenu(location.pathname);
+  }, [location]);
 
 
   useEffect(() => {
