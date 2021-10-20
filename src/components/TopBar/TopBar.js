@@ -2,6 +2,7 @@ import React from "react";
 import { Icon, Image } from "semantic-ui-react";
 import { Link, withRouter } from "react-router-dom";
 import firebase from "../../utils/Firebase";
+import "firebase/storage";
 import "firebase/auth";
 import UserImage from "../../assets/png/user.png";
 
@@ -25,7 +26,7 @@ function TopBar(props) {
             </div>
             <div className="top-bar__right">
                 <Link to="/settings">
-                    <Image src={UserImage} />
+                    <Image src={user.photoURL ? user.photoURL : UserImage} />
                     {user.displayName}
                 </Link>
                 <Icon name="power off" onClick={logout} />

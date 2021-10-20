@@ -11,6 +11,7 @@
   .avatar-name {
     display: flex;
     align-items: center;
+
     .user-avatar {
       display: table;
       margin: 0 !important;
@@ -23,6 +24,15 @@
       .ui.image {
         width: 100px;
         border-radius: 50px;
+      }
+    }
+
+    .user-name {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      h2 {
+        margin: 0 20px !important;
       }
     }
   }
