@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import AuthOptions from "../../components/Auth/AuthOptions";
 import LoginForm from "../../components/Auth/LoginForm";
 import RegisterForm from "../../components/Auth/RegisterForm";
@@ -22,7 +22,7 @@ export default function Auth() {
   };
 
   return (
-    <div className="auth" style={{backgroundImage: `url(${BackgroundAuth})`}}>
+    <div className="auth" style={{ backgroundImage: `url(${BackgroundAuth})` }}>
       <div className="auth__dark" />
       <div className="auth__box">
         <div className="auth__box-logo">

@@ -1,14 +1,14 @@
-import React, {useState} from "react";
-import {Button, Icon, Form, Input} from "semantic-ui-react";
-import {toast} from "react-toastify";
-import {validateEmail} from "../../../utils/Validations";
+import React, { useState } from "react";
+import { Button, Icon, Form, Input } from "semantic-ui-react";
+import { toast } from "react-toastify";
+import { validateEmail } from "../../../utils/Validations";
 import firebase from "../../../utils/Firebase";
 import "firebase/auth";
 
 import "./RegisterForm.scss";
 
 export default function RegisterForm(props) {
-  const {setSelectedForm} = props;
+  const { setSelectedForm } = props;
   const [formData, setFormData] = useState(defaultValueForm());
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState({});

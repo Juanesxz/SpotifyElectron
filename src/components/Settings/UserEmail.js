@@ -30,7 +30,7 @@ function ChangeEmailForm(props) {
 
     const onSubmit = () => {
         console.log("Formulario enviado");
-
+        console.log(formData);
         setShowModal(false);
     };
 
