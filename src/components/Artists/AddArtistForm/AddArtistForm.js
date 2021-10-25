@@ -2,13 +2,15 @@ import React, { useState, useCallback } from "react";
 import { Form, Input, Button, Image } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import NoImage from "../../../assets/png/no-image.png";
+
 import "./AddArtistForm.scss";
 
 export default function AddArtistForm(props) {
     const { setShowModal } = props;
+    const [formData, setFormData] = useState(initialValueForm());
     const [banner, setBanner] = useState(null);
     const [file, setFile] = useState(null);
-    console.log(banner);
+
 
     const onDrop = useCallback((acceptedFiles) => {
         const file = acceptedFiles[0];
@@ -24,7 +26,8 @@ export default function AddArtistForm(props) {
 
     const onSubmit = () => {
         console.log("Creando Nuevo Artista");
-        setShowModal(false);
+        console.log(formData);
+        // setShowModal(false);
     };
 
     return (
@@ -45,9 +48,17 @@ export default function AddArtistForm(props) {
                 />
             </Form.Field>
             <Form.Field>
-                <Input placeholder="Nombre del artista" />
+                <Input placeholder="Nombre del artista"
+                    onChange={e => setFormData({ name: e.target.value })}
+                />
             </Form.Field>
             <Button type="submit">Crear artista</Button>
         </Form>
     );
+}
+
+function initialValueForm() {
+    return {
+        name: "",
+    };
 }
