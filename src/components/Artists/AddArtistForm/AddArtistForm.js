@@ -5,10 +5,12 @@ import { toast } from "react-toastify";
 import { v4 as uuidv4 } from "uuid";
 import firebase from "../../../utils/Firebase";
 import "firebase/storage";
-
+import "firebase/firestore";
 import NoImage from "../../../assets/png/no-image.png";
 
 import "./AddArtistForm.scss";
+
+const db = firebase.firestore(firebase);
 
 export default function AddArtistForm(props) {
     const { setShowModal } = props;
@@ -44,13 +46,33 @@ export default function AddArtistForm(props) {
             const fileName = uuidv4();
             uploadImage(fileName)
                 .then(() => {
-                    console.log("Imagen subida correctamente");
+                    db.collection("artist")
+                        .add({
+                            name: formData.name,
+                            banner: fileName,
+                        })
+                        .then(() => {
+                            toast.success("Artista creado correctamente");
+                            resetForm();
+                            setIsLoading(false);
+                            setShowModal(false);
+                        })
+                        .catch(() => {
+                            toast.error("Error al crear el artista");
+                            setIsLoading(false);
+                        });
                 })
                 .catch(() => {
                     toast.error("Error al subir la imagen.");
                     setIsLoading(false);
                 });
         }
+    };
+
+    const resetForm = () => {
+        setFormData(initialValueForm());
+        setFile(null);
+        setBanner(null);
     };
 
     return (
