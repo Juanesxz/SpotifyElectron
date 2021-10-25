@@ -2,6 +2,9 @@ import React, { useState, useCallback } from "react";
 import { Form, Input, Button, Image } from "semantic-ui-react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
+import { v4 as uuidv4 } from "uuid";
+import firebase from "../../../utils/Firebase";
+import "firebase/storage";
 
 import NoImage from "../../../assets/png/no-image.png";
 
@@ -26,6 +29,11 @@ export default function AddArtistForm(props) {
         onDrop,
     });
 
+    const uploadImage = (fileName) => {
+        const ref = firebase.storage().ref().child(`artist/${fileName}`);
+        return ref.put(file);
+    };
+
     const onSubmit = () => {
         if (!formData.name) {
             toast.warning("Añade el nombre del artista");
@@ -33,7 +41,15 @@ export default function AddArtistForm(props) {
             toast.warning("Añade la imagen del artista");
         } else {
             setIsLoading(true);
-
+            const fileName = uuidv4();
+            uploadImage(fileName)
+                .then(() => {
+                    console.log("Imagen subida correctamente");
+                })
+                .catch(() => {
+                    toast.error("Error al subir la imagen.");
+                    setIsLoading(false);
+                });
         }
     };
 
@@ -55,11 +71,14 @@ export default function AddArtistForm(props) {
                 />
             </Form.Field>
             <Form.Field>
-                <Input placeholder="Nombre del artista"
-                    onChange={e => setFormData({ name: e.target.value })}
+                <Input
+                    placeholder="Nombre del artista"
+                    onChange={(e) => setFormData({ name: e.target.value })}
                 />
             </Form.Field>
-            <Button type="submit" loading={isLoading}>Crear artista</Button>
+            <Button type="submit" loading={isLoading}>
+                Crear artista
+            </Button>
         </Form>
     );
 }
